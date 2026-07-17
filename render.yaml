@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: quiz-system
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && bash build.sh
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: DB_TYPE
+        value: postgresql
+      - key: DB_HOST
+        value: db.kamjrkunqsltmuikpjri.supabase.co
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_NAME
+        value: postgres
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        sync: false
