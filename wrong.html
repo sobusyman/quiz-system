@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>错题库 - 答题系统</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <div class="back-btn" onclick="window.history.back()">
+            ← 返回
+        </div>
+
+        <!-- 头部 -->
+        <div class="wrong-header">
+            <h2>📕 我的错题库</h2>
+            <span class="wrong-count-badge" id="wrongCountBadge">{{ wrong_count }} 道</span>
+        </div>
+
+        <!-- 开始练习按钮 -->
+        <div class="card" style="margin-bottom:20px;">
+            <div style="display:flex;gap:12px;">
+                <button class="btn btn-primary" style="flex:1;" onclick="startWrongPractice()">
+                    开始错题练习
+                </button>
+            </div>
+        </div>
+
+        <!-- 错题列表 -->
+        <h3 class="section-title">错题列表</h3>
+        <div id="wrongList">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>加载中...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="bottom-nav">
+        <div class="nav-item" data-page="home" onclick="navigateTo('home')">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-text">首页</div>
+        </div>
+        <div class="nav-item active" data-page="wrong" onclick="navigateTo('wrong')">
+            <div class="nav-icon">📕</div>
+            <div class="nav-text">错题</div>
+        </div>
+        <div class="nav-item" data-page="profile" onclick="showProfile()">
+            <div class="nav-icon">👤</div>
+            <div class="nav-text">我的</div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWrongQuestionsPage();
+            setActiveNav('wrong');
+        });
+
+        function startWrongPractice() {
+            window.location.href = '/wrong-quiz/0';
+        }
+
+        function showProfile() {
+            if (confirm('确定要退出登录吗？')) {
+                handleLogout();
+            }
+        }
+    </script>
+</body>
+</html>

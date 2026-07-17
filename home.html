@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>首页 - 答题系统</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>👋 你好，{{ user.nickname }}</h1>
+            <p>开始今天的学习吧！</p>
+        </div>
+
+        <!-- 统计数据 -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" id="totalAnswered">{{ stats.total_answered or 0 }}</div>
+                <div class="stat-label">累计答题</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalCorrect">{{ stats.total_correct or 0 }}</div>
+                <div class="stat-label">正确数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="wrongCount" style="color:#ff4d4f;">{{ stats.wrong_count or 0 }}</div>
+                <div class="stat-label">错题数</div>
+            </div>
+        </div>
+
+        <!-- 题库分类 -->
+        <h2 class="section-title">📚 题库分类</h2>
+        <div id="categoryList">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>加载中...</p>
+            </div>
+        </div>
+
+        <!-- 错题库入口 -->
+        <div class="card" style="margin-top:20px;cursor:pointer;" onclick="goToWrong()">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                    <h3 style="margin-bottom:4px;">📕 我的错题库</h3>
+                    <p style="color:#999;font-size:14px;">反复练习错题，巩固知识</p>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-size:24px;font-weight:bold;color:#ff4d4f;">{{ stats.wrong_count or 0 }}</div>
+                    <div style="font-size:12px;color:#999;">道错题</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="bottom-nav">
+        <div class="nav-item active" data-page="home" onclick="navigateTo('home')">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-text">首页</div>
+        </div>
+        <div class="nav-item" data-page="wrong" onclick="navigateTo('wrong')">
+            <div class="nav-icon">📕</div>
+            <div class="nav-text">错题</div>
+        </div>
+        <div class="nav-item" data-page="profile" onclick="showProfile()">
+            <div class="nav-icon">👤</div>
+            <div class="nav-text">我的</div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        // 页面加载完成后加载分类
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            setActiveNav('home');
+        });
+
+        function goToWrong() {
+            window.location.href = '/wrong';
+        }
+
+        function showProfile() {
+            if (confirm('确定要退出登录吗？')) {
+                handleLogout();
+            }
+        }
+    </script>
+</body>
+</html>

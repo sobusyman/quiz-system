@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>答题 - 答题系统</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <div class="back-btn" onclick="window.history.back()">
+            ← 返回
+        </div>
+
+        <!-- 答题头部 -->
+        <div class="quiz-header">
+            <div class="quiz-progress" id="quizProgress">第 0 / 0 题</div>
+        </div>
+
+        <!-- 题目容器 -->
+        <div id="questionContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>加载题目中...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        const categoryId = {{ category_id }};
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initQuiz(categoryId);
+        });
+    </script>
+</body>
+</html>

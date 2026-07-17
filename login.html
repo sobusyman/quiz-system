@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>登录 - 答题系统</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-logo">
+            <h1>📝 答题系统</h1>
+            <p style="color:#999;font-size:14px;margin-top:8px;">安全生产知识学习平台</p>
+        </div>
+
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchTab('login')">登录</div>
+                <div class="auth-tab" onclick="switchTab('register')">注册</div>
+            </div>
+
+            <!-- 登录表单 -->
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label>手机号</label>
+                    <input type="tel" id="loginPhone" placeholder="请输入手机号" maxlength="11">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary">登录</button>
+            </form>
+
+            <!-- 注册表单 -->
+            <form id="registerForm" class="register-form" style="display:none;">
+                <div class="form-group">
+                    <label>昵称（选填）</label>
+                    <input type="text" id="registerNickname" placeholder="请输入昵称">
+                </div>
+                <div class="form-group">
+                    <label>手机号</label>
+                    <input type="tel" id="registerPhone" placeholder="请输入手机号" maxlength="11">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" placeholder="请输入密码（至少6位）">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="confirmPassword" placeholder="请再次输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary">注册</button>
+            </form>
+
+            <div class="auth-footer">
+                <span id="footerText">还没有账号？</span>
+                <a href="javascript:void(0)" onclick="switchTab()" id="footerLink">立即注册</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        let currentTab = 'login';
+
+        function switchTab(tab) {
+            if (!tab) {
+                tab = currentTab === 'login' ? 'register' : 'login';
+            }
+            currentTab = tab;
+
+            document.querySelectorAll('.auth-tab').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.auth-tab:nth-child(${tab === 'login' ? 1 : 2})`).classList.add('active');
+
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+
+            document.getElementById('footerText').textContent = tab === 'login' ? '还没有账号？' : '已有账号？';
+            document.getElementById('footerLink').textContent = tab === 'login' ? '立即注册' : '立即登录';
+        }
+    </script>
+</body>
+</html>
